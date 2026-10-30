@@ -1,0 +1,10 @@
+// Compile-only: everything below is already in the GTNH 2.9 instance at runtime.
+dependencies {
+    // lwjgl3ify: DisplayEvents (pre-window-create hook) and the SDL window handle.
+    compileOnly("com.github.GTNewHorizons:lwjgl3ify:3.0.37:dev") { transitive = false }
+    // Angelica: mixin targets (StandardMacros, IrisExclusiveUniforms) and their parameter types.
+    compileOnly("com.github.GTNewHorizons:Angelica:2.2.41:dev") { transitive = false }
+    // LWJGL 3 SDL bindings that lwjgl3ify ships (window properties, GL attributes, event watch).
+    compileOnly("org.lwjgl:lwjgl:3.4.3") { transitive = false }
+    compileOnly("org.lwjgl:lwjgl-sdl:3.4.3") { transitive = false }
+}

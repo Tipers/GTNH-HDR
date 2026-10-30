@@ -1,0 +1,21 @@
+{
+	"modListVersion": 2,
+	"modList": [{
+		"modid": "${modId}",
+		"name": "${modName}",
+		"description": "Real HDR output for GT New Horizons 2.9 with Angelica shaders (built for Complementary Unbound + Euphoria Patches). F10 = compare with the old picture, F12 = settings. Unofficial, client only, written with AI assistance.",
+		"version": "${modVersion}",
+		"mcversion": "${minecraftVersion}",
+		"url": "https://github.com/Tipers/GTNH-HDR",
+		"updateUrl": "",
+		"authorList": ["tipers"],
+		"credits": "Float-window idea and shader API after rrtt217's Minecraft HDR Mod (MIT); HDR tonemap approach after rrtt217's ComplementaryReimagined-hdr. Complementary Shaders by EminGT, Euphoria Patches by SpacEagle17. Written with Claude (Anthropic).",
+		"logoFile": "",
+		"screenshots": [],
+		"parent": "",
+		"requiredMods": ["angelica", "lwjgl3ify"],
+		"dependencies": [],
+		"dependants": [],
+		"useDependencyInformation": false
+	}]
+}

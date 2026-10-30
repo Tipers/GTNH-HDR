@@ -1,0 +1,48 @@
+name: Build
+
+# Only when code or build files change: README, docs and issue-form edits don't trigger a build.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+      - ".github/ISSUE_TEMPLATE/**"
+      - "LICENSE"
+  pull_request:
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+      - ".github/ISSUE_TEMPLATE/**"
+      - "LICENSE"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the GTNH buildscript reads the version from git tags
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          # 25 for the Gradle daemon (gradle/gradle-daemon-jvm.properties), 21 as the default JDK
+          java-version: |
+            25
+            21
+
+      - name: Build
+        run: ./gradlew build --no-daemon
+
+      - name: Keep only the player jar
+        run: rm -f build/libs/*-dev.jar build/libs/*-sources.jar
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GTNH-HDR-test-build
+          path: build/libs/*.jar

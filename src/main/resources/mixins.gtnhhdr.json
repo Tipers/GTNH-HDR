@@ -1,0 +1,20 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.gtnhhdr.mixins",
+  "refmap": "mixins.gtnhhdr.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "injectors": {
+    "defaultRequire": 0
+  },
+  "mixins": [],
+  "client": [
+    "early.MixinForgeHooksClient_HdrWindow",
+    "early.MixinFramebuffer_HdrOutput",
+    "angelica.MixinStandardMacros_Hdr",
+    "angelica.MixinIrisExclusiveUniforms_Hdr",
+    "angelica.MixinFinalPassRenderer_HdrTiming"
+  ],
+  "server": []
+}

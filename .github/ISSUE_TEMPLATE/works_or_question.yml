@@ -1,0 +1,17 @@
+name: It works on my setup / question / idea
+description: Tell us it works on your PC (helps a lot!), ask something, or suggest something
+labels: ["works-on"]
+body:
+  - type: textarea
+    id: text
+    attributes:
+      label: Your message
+      description: For "it works" reports, a sentence on how it looks is plenty.
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics (optional, but very useful)
+      description: In the game press F12 → "Copy diagnostics", then paste here.
+      render: text
