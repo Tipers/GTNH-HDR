@@ -1,12 +1,29 @@
 ## Install
 
-GTNH-HDR works with two families of shader packs: **Eclipse** (with or without Chroma Patch) and **Complementary Unbound + Euphoria Patches**.
+You need one of these two shader packs first. Click yours to see how to get it, or skip ahead if you already have it.
 
-0. **Get a supported shader pack.** Already using Eclipse? Skip to step 1. For Complementary + Euphoria Patches (skip this if you already have a `ComplementaryUnbound_r5.8.1 + EuphoriaPatches_1.9.3` shader pack):
-   - Download **Complementary Unbound r5.8.1** ([Modrinth](https://modrinth.com/shader/complementary-unbound/version/VMHXIk50)) and put the `.zip` **as it is** (don't unzip it) into your instance's **`shaderpacks`** folder.
-   - Download **Euphoria Patches 1.9.3 for Forge 1.7.10** ([Modrinth](https://modrinth.com/mod/euphoria-patches/version/KCj70UqE), file `EuphoriaPatcher-1.9.3-r5.8.1-forge1.7.10.jar`) and put it into your **`mods`** folder.
-   - Start the game once. Euphoria Patches creates the shader pack folder **`ComplementaryUnbound_r5.8.1 + EuphoriaPatches_1.9.3`** in `shaderpacks`.
-   - Use exactly these versions. Newer ones (Complementary r5.9+, Euphoria 1.10+) aren't supported yet.
+<details>
+<summary><b>Eclipse</b> (optionally with Chroma Patch)</summary>
+
+1. On [Merlin1809/Eclipse-Shader](https://github.com/Merlin1809/Eclipse-Shader), choose **Code → Download ZIP**.
+2. Put the `.zip` **as it is** (don't unzip it) into your instance's **`shaderpacks`** folder.
+3. Optional, for coloured GTNH lights: put the [Chroma Patch](https://github.com/Summxx/ChromaPatch) mod into your **`mods`** folder and start the game once. It creates **`Eclipse-Shader KuraEdit [OBS07-Chroma Patch].zip`** in `shaderpacks`. It needs GTNH 2.9.0 and Java 25.
+
+</details>
+
+<details>
+<summary><b>Complementary + Euphoria Patches</b></summary>
+
+1. Put [Complementary Unbound r5.8.1](https://modrinth.com/shader/complementary-unbound/version/VMHXIk50) **as a `.zip`** (don't unzip it) into your instance's **`shaderpacks`** folder.
+2. Put [Euphoria Patches 1.9.3 for Forge 1.7.10](https://modrinth.com/mod/euphoria-patches/version/KCj70UqE) (`EuphoriaPatcher-1.9.3-r5.8.1-forge1.7.10.jar`) into your **`mods`** folder.
+3. Start the game once. Euphoria Patches creates the shader pack folder in `shaderpacks`.
+
+Use exactly these versions. Newer ones aren't supported yet.
+
+</details>
+
+Then install GTNH-HDR:
+
 1. Download **`GTNH-HDR-<version>.jar`** from the [Releases](../../releases) page.
 2. Put it into your instance's **`mods`** folder. In Prism Launcher: right-click the instance → **Folder** → open **`mods`**.
 3. Start the game.
