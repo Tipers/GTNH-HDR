@@ -193,7 +193,7 @@ public final class HdrClient {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 
-    /** F12 button: HDR copies of the supported Complementary + Euphoria Patches packs in shaderpacks/. */
+    /** F12 button: HDR copy of the selected shader pack, or of every supported pack if another one is selected. */
     void makeHdrPackCopies() {
         final File shaderpacks = new File(Minecraft.getMinecraft().mcDataDir, "shaderpacks");
         final List<String> results = HdrPackPatcher.makeHdrCopies(shaderpacks);

@@ -67,6 +67,7 @@ body:
       options:
         - "The HDR copy made by GTNH-HDR"
         - "Original Complementary + Euphoria Patches"
+        - "Original Eclipse (with or without Chroma Patch)"
         - "Another shader pack"
         - "No shaders"
     validations:

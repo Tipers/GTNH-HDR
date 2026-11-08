@@ -51,4 +51,10 @@ vec3 HdrFinalToUi(vec3 color) {
     return HdrEncode(linearColor * (HdrGamePaperWhiteBrightness / max(HdrUIBrightness, 1.0)));
 }
 
+// Same, for packs that keep the picture in a float buffer as plain sRGB-encoded colour (paper white = 1.0, above 1.0 allowed).
+vec3 HdrFinalToUiExtended(vec3 color) {
+    vec3 linearColor = min(HdrDecode(color), vec3(HdrPeakRel()));
+    return HdrEncode(linearColor * (HdrGamePaperWhiteBrightness / max(HdrUIBrightness, 1.0)));
+}
+
 #endif

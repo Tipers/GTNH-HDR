@@ -14,6 +14,14 @@ Complementary passes ... composite5: HDR tonemap, ending at peak / paper white,
   ──► TAA / FXAA unchanged (they still see 0..1)
   ──► final: decode × P, clamp to peak, × (paper white / UI white), sRGB encode
            ──►  Minecraft framebuffer (RGBA16F instead of RGBA8)
+
+Eclipse passes ... composite11: AgX with a top that ends at the peak, sRGB encoded,
+    paper white = 1.0, above 1.0 allowed  ──►  colortex2 (RGBA16F, free after composite4)
+  ──► composite12: highlights set aside around saturation and grading
+  ──► final: decode, clamp to peak, × (paper white / UI white), sRGB encode
+           ──►  Minecraft framebuffer
+
+Both packs, from here on:
   ──► GUI and HUD drawn on top, unchanged (sRGB 0..1)
   ──► GTNH-HDR's encode inside Minecraft's existing fullscreen copy:
            sRGB decode × (UI white / 80)  ──►  window back buffer (FP16 = scRGB)
@@ -53,4 +61,6 @@ All mixins are optional, so a changed target disables that feature instead of cr
 
 ## Shader patch
 
-See [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md) and `src/main/java/com/gtnhhdr/patch/HdrPackPatcher.java`. It makes eight insertions in four files, adds `lib/misc/hdrOutput.glsl` (ours), and builds `lib/colors/hdrTonemap.glsl` from the pack's own `DoCompTonemap`. All of it is behind `#ifdef HDR_ENABLED`.
+See [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md) and `src/main/java/com/gtnhhdr/patch/HdrPackPatcher.java`. Each supported pack family is one recipe: a list of insertions, plus which of the pack's tonemap functions to copy. Every recipe adds `lib/misc/hdrOutput.glsl` (ours) and builds `lib/colors/hdrTonemap.glsl` from the pack's own function. All of it is behind `#ifdef HDR_ENABLED`.
+
+Eclipse keeps the picture out of `colortex7` under HDR because that buffer is RGBA8 and its alpha holds translucency masks. `#ifdef` around the `RENDERTARGETS` comments works because Angelica runs the preprocessor before it reads them. To change how highlights rise, edit `HDR_AGX_KNEE` and `HDR_AGX_END` in the generated `hdrTonemap.glsl`.

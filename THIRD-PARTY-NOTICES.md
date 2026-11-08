@@ -41,6 +41,12 @@ The in-game "Make HDR copy of shader pack" button works on the player's own copy
 
 The result is a new folder on the player's PC; the original pack is never modified. The HDR tonemap approach follows rrtt217's ComplementaryReimagined-hdr (<https://github.com/rrtt217/ComplementaryReimagined-hdr>).
 
+## Eclipse Shader and Chroma Patch
+
+Eclipse Shader (Merlin1809, based on the work of Chocapic13) and Chroma Patch (OBS07 and KuramA) are under their own terms. **None of their code is included in this repository or in the mod jar.**
+
+The button works the same way as for Complementary, on the player's own copy of the pack. It finds the places to change by line fingerprints, inserts only GTNH-HDR's own lines, and builds the HDR tonemap by copying `ToneMap_AgX_minimal_merlin` from the player's `color_transforms.glsl` and swapping a few of its lines for GTNH-HDR's own. The result is a new folder on the player's PC, and the original pack is never modified.
+
 ## Built with
 
 Forge 1.7.10, the GTNH buildscript (GTNHGradle, RetroFuturaGradle) and the Gradle wrapper (Apache-2.0). Compiled against Angelica (LGPL-3.0), lwjgl3ify and LWJGL 3 (BSD-3-Clause). None of these are bundled in the jar.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0
+
+**New**
+- **Eclipse support**, with or without Chroma Patch. The HDR tonemap is built from the pack's own AgX, and is unchanged below scene brightness 1.5.
+- **Make HDR copy of shader pack** now works on `.zip` packs too.
+- The button copies only the selected pack when that pack is supported.
+
 ## 0.1.0 – first public test release
 
 **New**

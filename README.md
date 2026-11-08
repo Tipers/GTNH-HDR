@@ -1,6 +1,8 @@
 ## Install
 
-0. **Get Complementary + Euphoria Patches** (skip this if you already have a `ComplementaryUnbound_r5.8.1 + EuphoriaPatches_1.9.3` shader pack):
+GTNH-HDR works with two families of shader packs: **Eclipse** (with or without Chroma Patch) and **Complementary Unbound + Euphoria Patches**.
+
+0. **Get a supported shader pack.** Already using Eclipse? Skip to step 1. For Complementary + Euphoria Patches (skip this if you already have a `ComplementaryUnbound_r5.8.1 + EuphoriaPatches_1.9.3` shader pack):
    - Download **Complementary Unbound r5.8.1** ([Modrinth](https://modrinth.com/shader/complementary-unbound/version/VMHXIk50)) and put the `.zip` **as it is** (don't unzip it) into your instance's **`shaderpacks`** folder.
    - Download **Euphoria Patches 1.9.3 for Forge 1.7.10** ([Modrinth](https://modrinth.com/mod/euphoria-patches/version/KCj70UqE), file `EuphoriaPatcher-1.9.3-r5.8.1-forge1.7.10.jar`) and put it into your **`mods`** folder.
    - Start the game once. Euphoria Patches creates the shader pack folder **`ComplementaryUnbound_r5.8.1 + EuphoriaPatches_1.9.3`** in `shaderpacks`.
@@ -8,7 +10,7 @@
 1. Download **`GTNH-HDR-<version>.jar`** from the [Releases](../../releases) page.
 2. Put it into your instance's **`mods`** folder. In Prism Launcher: right-click the instance → **Folder** → open **`mods`**.
 3. Start the game.
-4. Press **F12** → **Make HDR copy of shader pack**. This makes a copy of your Complementary + Euphoria pack called **`HDR ComplementaryUnbound_r5.8.1 + EuphoriaPatches_1.9.3`**. Your original pack isn't touched.
+4. Press **F12** → **Make HDR copy of shader pack**. This copies the shader pack you have selected into a new one with **`HDR `** in front of its name. If the selected pack isn't supported, every supported pack gets a copy. Your original pack isn't touched, and packs stored as `.zip` work too.
 5. Go to **Options → Video Settings → Shaders** and pick the pack whose name starts with **HDR**.
 
 ## Controls
@@ -25,7 +27,7 @@
 | HDR step (measured in-game, RTX 3090, 2560×1440) | **0.050 ms per frame** |
 | Extra CPU work | **none** |
 | Extra video memory | about 45 MB |
-| Shader pack change | about the same speed as the original pack. The HDR copy stores the picture in a buffer of the same size. |
+| Shader pack change | about the same speed as the original pack. The Complementary copy stores the picture in a buffer of the same size. The Eclipse copy uses a 16-bit buffer the pack already has. |
 
 <img src="https://cdn.discordapp.com/emojis/1322967256476553226.webp?size=300" width="64" alt="">
 
@@ -33,21 +35,23 @@
 
 - NVIDIA **RTX 3090**
 - a 400-nit-class QD-OLED monitor, 2560×1440 at 240 Hz
-- **GTNH 2.9.0-RC-2** in Prism Launcher, Java 25
-- Angelica 2.2.41, lwjgl3ify 3.0.37
-- Complementary Unbound r5.8.1 + Euphoria Patches 1.9.3
+- Prism Launcher, Java 25
+- **Eclipse + Chroma Patch** (my own edit of it) on **GTNH 2.9.0**, Angelica 2.2.43, lwjgl3ify 3.0.42
+- **Complementary Unbound r5.8.1 + Euphoria Patches 1.9.3** on **GTNH 2.9.0-RC-2**, Angelica 2.2.41, lwjgl3ify 3.0.37
 
 You can report back to me if stuff is working for you too :)
+
+Stock Eclipse and unedited Chroma Patch were only checked outside the game. The patch changes the same lines in them.
 
 **Not tested yet:** AMD cards, other NVIDIA cards, laptops, Windows 10, other monitors (LCD, mini-LED, 1000+ nits), other launchers, other GTNH versions. Yet should work for most systems. Report issues otherwise
 
 ## Known limits
 
 - **Windows only** (Windows 10 or 11, with Windows HDR turned on). Linux and macOS are not supported.
-- Only for **Complementary Unbound r5.8.1 + Euphoria Patches 1.9.3**
+- Only for **Complementary Unbound r5.8.1 + Euphoria Patches 1.9.3** and **Eclipse** (the October 2026 Unstable version, with or without Chroma Patch). If a pack's files change, the copy button refuses it instead of making a broken copy.
 - **The loading screen during start-up** can look dimmer or different. It's correct once the main menu appears.
 - **F2 screenshots** are saved as normal (SDR) pictures, so highlights look clipped in them.
-- **In HDR, the patched pack always uses Complementary's standard tonemap curve.** If you picked a different tonemap in the Euphoria settings (ACES, AgX, …), that choice only applies when HDR is off. Contrast, saturation and the other colour settings still work.
+- **In HDR, the patched pack always uses its standard tonemap curve** (Complementary's own curve, or AgX on Eclipse). If you picked a different tonemap in the shader settings, that choice only applies when HDR is off. Contrast, saturation and the other colour settings still work.
 - **Intel graphics** are not supported.
 - **Laptops** where the screen is connected to an Intel chip may not work.
 
@@ -55,14 +59,14 @@ You can report back to me if stuff is working for you too :)
 
 - **Build:** JDK 21. Gradle downloads JDK 25 for its daemon itself (see `gradle/gradle-daemon-jvm.properties`).
   ```bash
-  VERSION=0.1.0 ./gradlew build
+  VERSION=0.2.0 ./gradlew build
   ```
-  The jar is written to `build/libs/GTNH-HDR-0.1.0.jar`. Without `VERSION`, the GTNH buildscript takes the version from the latest git tag; outside a git repository it falls back to `NO-GIT-TAG-SET`.
+  The jar is written to `build/libs/GTNH-HDR-0.2.0.jar`. Without `VERSION`, the GTNH buildscript takes the version from the latest git tag; outside a git repository it falls back to `NO-GIT-TAG-SET`.
 - **How it works:** [docs/DESIGN.md](docs/DESIGN.md). **Shader API** (compatible with rrtt217's HDR mod): [docs/SHADER-API.md](docs/SHADER-API.md).
-- **Shader patcher from the command line:** `java -cp GTNH-HDR-0.1.0.jar com.gtnhhdr.patch.HdrPackPatcher "<instance>/shaderpacks"`.
+- **Shader patcher from the command line:** `java -cp GTNH-HDR-0.2.0.jar com.gtnhhdr.patch.HdrPackPatcher "<instance>/shaderpacks"`.
   - It finds the places to change by line fingerprints of the player's own files and only inserts its own lines.
-  - It builds the HDR tonemap from the pack's own `DoCompTonemap`.
-  - No Complementary or Euphoria code is in this repository.
+  - It builds the HDR tonemap from the pack's own function (`DoCompTonemap`, or `ToneMap_AgX_minimal_merlin` on Eclipse).
+  - No Complementary, Euphoria or Eclipse code is in this repository.
 - **Gotchas found while building:**
   1. lwjgl3ify rewrites every `org/lwjgl/` reference in mod classes to `org/lwjglx/`, unless the class has `@me.eigenraven.lwjgl3ify.api.Lwjgl3Aware`. Classes that call LWJGL 3 SDL directly need it.
   2. Angelica loads `StandardMacros` right after the GL context is made, before late mixins exist, so that hook must be an early mixin.
@@ -84,6 +88,8 @@ You can report back to me if stuff is working for you too :)
   - [ComplementaryReimagined-hdr](https://github.com/rrtt217/ComplementaryReimagined-hdr): the HDR tonemap approach.
 - **EminGT / Complementary Development**: [Complementary Shaders](https://www.complementary.dev).
 - **SpacEagle17**: [Euphoria Patches](https://www.euphoriapatches.com).
+- **Merlin1809**: Eclipse Shader, and **Chocapic13**, whose work it builds on.
+- **OBS07 and KuramA**: Chroma Patch.
 - **The GTNH team**: Angelica, lwjgl3ify and the mod build template.
 - **kurushimee**: the first GTNH HDR proof of concept.
 
