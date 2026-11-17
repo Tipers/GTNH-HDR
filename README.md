@@ -14,11 +14,11 @@ You need one of these two shader packs first. Click yours to see how to get it, 
 <details>
 <summary><b>Complementary + Euphoria Patches</b></summary>
 
-1. Put [Complementary Unbound r5.8.1](https://modrinth.com/shader/complementary-unbound/version/VMHXIk50) **as a `.zip`** (don't unzip it) into your instance's **`shaderpacks`** folder.
-2. Put [Euphoria Patches 1.9.3 for Forge 1.7.10](https://modrinth.com/mod/euphoria-patches/version/KCj70UqE) (`EuphoriaPatcher-1.9.3-r5.8.1-forge1.7.10.jar`) into your **`mods`** folder.
+1. Put **Complementary Reimagined or Unbound** as a **`.zip`** (don't unzip it) into your instance's **`shaderpacks`** folder: [r5.8.1](https://modrinth.com/shader/complementary-unbound/version/VMHXIk50) or r5.9.3.
+2. Put the matching **Euphoria Patches for Forge 1.7.10** into your **`mods`** folder: [1.9.3](https://modrinth.com/mod/euphoria-patches/version/KCj70UqE) for r5.8.1, [1.10.5](https://modrinth.com/mod/euphoria-patches/version/3HotjtC0) for r5.9.3.
 3. Start the game once. Euphoria Patches creates the shader pack folder in `shaderpacks`.
 
-Use exactly these versions. Newer ones aren't supported yet.
+Other versions aren't supported yet.
 
 </details>
 
@@ -65,7 +65,7 @@ Stock Eclipse and unedited Chroma Patch were only checked outside the game. The 
 ## Known limits
 
 - **Windows only** (Windows 10 or 11, with Windows HDR turned on). Linux and macOS are not supported.
-- Only for **Complementary Unbound r5.8.1 + Euphoria Patches 1.9.3** and **Eclipse** (the October 2026 Unstable version, with or without Chroma Patch). If a pack's files change, the copy button refuses it instead of making a broken copy.
+- Only for **Complementary (Reimagined or Unbound) r5.8.1 + Euphoria Patches 1.9.3, or r5.9.3 + 1.10.5** and **Eclipse** (the October 2026 Unstable version, with or without Chroma Patch). If a pack's files change, the copy button refuses it instead of making a broken copy.
 - **The loading screen during start-up** can look dimmer or different. It's correct once the main menu appears.
 - **F2 screenshots** are saved as normal (SDR) pictures, so highlights look clipped in them.
 - **In HDR, the patched pack always uses its standard tonemap curve** (Complementary's own curve, or AgX on Eclipse). If you picked a different tonemap in the shader settings, that choice only applies when HDR is off. Contrast, saturation and the other colour settings still work.
@@ -76,11 +76,11 @@ Stock Eclipse and unedited Chroma Patch were only checked outside the game. The 
 
 - **Build:** JDK 21. Gradle downloads JDK 25 for its daemon itself (see `gradle/gradle-daemon-jvm.properties`).
   ```bash
-  VERSION=0.2.0 ./gradlew build
+  VERSION=0.2.1 ./gradlew build
   ```
-  The jar is written to `build/libs/GTNH-HDR-0.2.0.jar`. Without `VERSION`, the GTNH buildscript takes the version from the latest git tag; outside a git repository it falls back to `NO-GIT-TAG-SET`.
+  The jar is written to `build/libs/GTNH-HDR-0.2.1.jar`. Without `VERSION`, the GTNH buildscript takes the version from the latest git tag; outside a git repository it falls back to `NO-GIT-TAG-SET`.
 - **How it works:** [docs/DESIGN.md](docs/DESIGN.md). **Shader API** (compatible with rrtt217's HDR mod): [docs/SHADER-API.md](docs/SHADER-API.md).
-- **Shader patcher from the command line:** `java -cp GTNH-HDR-0.2.0.jar com.gtnhhdr.patch.HdrPackPatcher "<instance>/shaderpacks"`.
+- **Shader patcher from the command line:** `java -cp GTNH-HDR-0.2.1.jar com.gtnhhdr.patch.HdrPackPatcher "<instance>/shaderpacks"`.
   - It finds the places to change by line fingerprints of the player's own files and only inserts its own lines.
   - It builds the HDR tonemap from the pack's own function (`DoCompTonemap`, or `ToneMap_AgX_minimal_merlin` on Eclipse).
   - No Complementary, Euphoria or Eclipse code is in this repository.

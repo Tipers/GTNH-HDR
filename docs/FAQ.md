@@ -9,7 +9,7 @@ Barely. The HDR step measured 0.050 ms per frame on an RTX 3090 at 1440p, and it
 3. Press F12. The lines at the bottom say whether the 16-bit window is active and whether the pack's HDR patch is in use.
 
 **"Make HDR copy" says my pack isn't supported.**
-**Complementary Unbound r5.8.1 + Euphoria Patches 1.9.3** (the version GTNH 2.9's EuphoriaPatcher makes) and **Eclipse** (the October 2026 Unstable version, with or without Chroma Patch) work. Other versions need a GTNH-HDR update.
+**Complementary (Reimagined or Unbound) r5.8.1 + Euphoria Patches 1.9.3** (the version GTNH 2.9's EuphoriaPatcher makes), r5.9.3 + Euphoria Patches 1.10.5 (since 0.2.1) and **Eclipse** (the October 2026 Unstable version, with or without Chroma Patch) work. Other versions need a GTNH-HDR update.
 
 **Menus are too bright or too dim.**
 They follow Windows' "SDR content brightness" slider (Settings → Display → HDR). Change it there, or set `uiNits` in `config/GTNH-HDR.cfg`.

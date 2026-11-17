@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+**New**
+- **Complementary (Reimagined or Unbound) r5.9.3 + Euphoria Patches 1.10.5** is supported. Tried in the game and it works.
+
 ## 0.2.0
 
 **New**

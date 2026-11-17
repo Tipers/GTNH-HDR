@@ -55,12 +55,19 @@ public final class HdrPackPatcher {
         final String[] run;
         final int at;
         final String[] lines;
+        /** Same place as worded by a newer pack version; tried when {@code run} isn't found. */
+        String[] altRun;
 
         Insert(String file, String[] run, int at, String... lines) {
             this.file = file;
             this.run = run;
             this.at = at;
             this.lines = lines;
+        }
+
+        Insert orElse(String... otherRun) {
+            this.altRun = otherRun;
+            return this;
         }
     }
 
@@ -104,6 +111,8 @@ public final class HdrPackPatcher {
         LENS_FLARE = "lib/misc/lensFlare.glsl", FINAL = "program/final.glsl", TONEMAPS = "lib/colors/tonemaps.glsl";
 
     private static final String[] RUN_COLORTEX19 = { "28f9025f9e91814d", "ed9623369ff082ab" };
+    /** r5.9.3 only dropped "(needs reprojection)" from the colortex19Format comment (anchor = that line + the closing comment end). */
+    private static final String[] RUN_COLORTEX19_V593 = { "d49fd11d0842dcb0", "ed9623369ff082ab" };
     private static final String[] RUN_C5_INCLUDES = { "151ff771bc0016c4", "46274a08dc2a7985" };
     private static final String[] RUN_C5_TONEMAP = { "78f8bc3c96c120a6", "e2a01dc0c78780de", "cd31727502550a74",
         "9654a8a6c10a18eb", "1e258076b154c8a5", "dc12e978f9dca6ec" };
@@ -122,7 +131,7 @@ public final class HdrPackPatcher {
             "/*",
             "const int colortex3Format = RGB10_A2;",
             "*/",
-            "#endif"),
+            "#endif").orElse(RUN_COLORTEX19_V593),
         new Insert(COMPOSITE5, RUN_C5_INCLUDES, 2,
             "#ifdef HDR_ENABLED // " + MARK,
             "    #include \"/lib/misc/hdrOutput.glsl\"",
@@ -196,7 +205,7 @@ public final class HdrPackPatcher {
         + "// SDR white, and colours bleach to white only for far brighter input. Output: sRGB-encoded, paper white = 1.0.\n"
         + "// Approach after rrtt217's ComplementaryReimagined-hdr.\n";
 
-    private static final Recipe COMPLEMENTARY = new Recipe("Complementary Unbound r5.8.1 + Euphoria Patches 1.9.3",
+    private static final Recipe COMPLEMENTARY = new Recipe("Complementary Unbound r5.8.1 + Euphoria Patches 1.9.3, or r5.9.3 + 1.10.5",
         new String[] { PIPELINE, COMPOSITE5, LENS_FLARE, FINAL, TONEMAPS }, COMP_INSERTS,
         new Tonemap(TONEMAPS, COMP_FN_START, COMP_REPLACE, COMP_FN_CURVE, COMP_SHOULDER, COMP_HEADER));
 
@@ -409,7 +418,8 @@ public final class HdrPackPatcher {
             final Map<String, List<int[]>> where = new LinkedHashMap<>(); // file -> {line index, insert index}
             for (int i = 0; i < recipe.inserts.size(); i++) {
                 final Insert ins = recipe.inserts.get(i);
-                final int start = files.get(ins.file).findUniqueRun(ins.run);
+                int start = files.get(ins.file).findUniqueRun(ins.run);
+                if (start < 0 && ins.altRun != null) start = files.get(ins.file).findUniqueRun(ins.altRun);
                 if (start < 0) problems.add(ins.file);
                 else where.computeIfAbsent(ins.file, k -> new ArrayList<>()).add(new int[] { start + ins.at, i });
             }
